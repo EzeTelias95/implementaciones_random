@@ -65,7 +65,7 @@ class LRUCache():
             
         if node is not None:            
             self._move_front(node)
-            return node.value
+            return node.val
         
         node = _Node(key=k, val=v)
         self._data[k] = node
@@ -125,15 +125,9 @@ def lru_cache_impl(max_size: int = 2, typed: bool= False)  -> Callable[[F], F]:
         def cache_info() -> CacheInfo:
             return CacheInfo(hits=hits, misses=misses, max_size=max_size, currsize=len(cache))
 
-        def cache_clear() -> None:
-            nonlocal hits, misses
-            cache.clear()
-            hits = 0
-            misses = 0
+       
 
         setattr(wrapper, "cache_info", cache_info)
-        setattr(wrapper, "cache_clear", cache_clear)
-
         return wrapper 
     
     return decorator
